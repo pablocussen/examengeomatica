@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Evaluador Geomática 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            color: white;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ff6b6b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .answers-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .answer-input {
+            position: relative;
+        }
+
+        .answer-input input {
+            width: 100%;
+            padding: 10px 5px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .answer-input input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .answer-input::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        .evaluate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .evaluate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+        }
+
+        .evaluate-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .results {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .score {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+
+        .score-circle.approved {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+        }
+
+        .score-circle.failed {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        }
+
+        .status-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .details {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .breakdown {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .result-item {
+            padding: 8px 4px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .result-item.correct {
+            background: rgba(86, 171, 47, 0.8);
+        }
+
+        .result-item.incorrect {
+            background: rgba(255, 65, 108, 0.8);
+        }
+
+        .share-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Evaluador Geomática</h1>
+            <p>Universidad Mayor 2025</p>
+            <p>📅 29 Agosto | ⏰ 18:30-21:30</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label>👤 Tu Nombre</label>
+                <input type="text" id="studentName" placeholder="Ingresa tu nombre...">
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label style="display: block; text-align: center; margin-bottom: 15px; font-weight: 600;">
+                📝 Tus Respuestas (A, B, C, D, E)
+            </label>
+            <div class="answers-grid">
+                <div class="answer-input" data-num="1"><input type="text" maxlength="1" id="q1"></div>
+                <div class="answer-input" data-num="2"><input type="text" maxlength="1" id="q2"></div>
+                <div class="answer-input" data-num="3"><input type="text" maxlength="1" id="q3"></div>
+                <div class="answer-input" data-num="4"><input type="text" maxlength="1" id="q4"></div>
+                <div class="answer-input" data-num="5"><input type="text" maxlength="1" id="q5"></div>
+                <div class="answer-input" data-num="6"><input type="text" maxlength="1" id="q6"></div>
+                <div class="answer-input" data-num="7"><input type="text" maxlength="1" id="q7"></div>
+                <div class="answer-input" data-num="8"><input type="text" maxlength="1" id="q8"></div>
+                <div class="answer-input" data-num="9"><input type="text" maxlength="1" id="q9"></div>
+                <div class="answer-input" data-num="10"><input type="text" maxlength="1" id="q10"></div>
+                <div class="answer-input" data-num="11"><input type="text" maxlength="1" id="q11"></div>
+                <div class="answer-input" data-num="12"><input type="text" maxlength="1" id="q12"></div>
+                <div class="answer-input" data-num="13"><input type="text" maxlength="1" id="q13"></div>
+                <div class="answer-input" data-num="14"><input type="text" maxlength="1" id="q14"></div>
+                <div class="answer-input" data-num="15"><input type="text" maxlength="1" id="q15"></div>
+                <div class="answer-input" data-num="16"><input type="text" maxlength="1" id="q16"></div>
+                <div class="answer-input" data-num="17"><input type="text" maxlength="1" id="q17"></div>
+                <div class="answer-input" data-num="18"><input type="text" maxlength="1" id="q18"></div>
+                <div class="answer-input" data-num="19"><input type="text" maxlength="1" id="q19"></div>
+                <div class="answer-input" data-num="20"><input type="text" maxlength="1" id="q20"></div>
+                <div class="answer-input" data-num="21"><input type="text" maxlength="1" id="q21"></div>
+            </div>
+        </div>
+
+        <button class="evaluate-btn" onclick="evaluateAnswers()">
+            🚀 EVALUAR MI EXAMEN
+        </button>
+
+        <div class="results" id="results">
+            <div class="score">
+                <div class="score-circle" id="scoreCircle">
+                    <span id="scorePercent">0%</span>
+                </div>
+                <div class="status-text" id="statusText"></div>
+                <div class="details" id="details"></div>
+            </div>
+
+            <div class="breakdown" id="breakdown"></div>
+
+            <button class="share-btn" onclick="shareResults()">
+                📱 Compartir en WhatsApp
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>💡 Hecho por Pablo Cussen</p>
+            <p>🎯 Magíster Teledetección UMAY</p>
+        </div>
+    </div>
+
+    <script>
+        // Respuestas correctas basadas en el análisis
+        const correctAnswers = {
+            1: 'C', 2: 'C', 3: 'B', 4: 'C', 5: 'D',
+            6: 'E', 7: 'D', 8: 'B', 9: 'D', 10: 'A',
+            11: 'B', 12: 'B', 13: 'B', 14: 'B', 15: 'C',
+            16: 'A', 17: 'B', 18: 'B', 19: 'B', 20: 'D', 21: 'D'
+        };
+
+        // Auto-focus next input
+        document.querySelectorAll('.answer-input input').forEach((input, index, inputs) => {
+            input.addEventListener('input', function(e) {
+                this.value = this.value.toUpperCase();
+                if (this.value && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+
+        function evaluateAnswers() {
+            const name = document.getElementById('studentName').value.trim();
+            if (!name) {
+                alert('🚨 Por favor ingresa tu nombre');
+                return;
+            }
+
+            let correct = 0;
+            let total = 21;
+            const breakdown = document.getElementById('breakdown');
+            breakdown.innerHTML = '';
+
+            for (let i = 1; i <= total; i++) {
+                const userAnswer = document.getElementById(`q${i}`).value.toUpperCase();
+                const isCorrect = userAnswer === correctAnswers[i];
+                
+                if (isCorrect) correct++;
+
+                const item = document.createElement('div');
+                item.className = `result-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                item.innerHTML = `${i}<br>${isCorrect ? '✓' : '✗'}`;
+                breakdown.appendChild(item);
+            }
+
+            const percentage = Math.round((correct / total) * 100);
+            const approved = percentage >= 60;
+            const score = Math.round((percentage * 60) / 100);
+
+            // Update UI
+            document.getElementById('scorePercent').textContent = `${percentage}%`;
+            document.getElementById('statusText').textContent = approved ? '🎉 ¡APROBADO!' : '😅 Reprobado';
+            document.getElementById('details').innerHTML = `
+                <strong>${correct}/${total} correctas</strong><br>
+                Puntaje: ${score}/63 puntos<br>
+                ${approved ? 'Sobre el 60% requerido' : 'Necesitas 60% para aprobar'}
+            `;
+
+            const circle = document.getElementById('scoreCircle');
+            circle.className = `score-circle ${approved ? 'approved' : 'failed'}`;
+
+            document.getElementById('results').classList.add('show');
+
+            // Store results for sharing
+            window.currentResult = {
+                name: name,
+                correct: correct,
+                total: total,
+                percentage: percentage,
+                score: score,
+                approved: approved
+            };
+        }
+
+        function shareResults() {
+            if (!window.currentResult) return;
+
+            const r = window.currentResult;
+            const status = r.approved ? '🎉 APROBADO' : '😅 Reprobado';
+            
+            const message = `🎓 *RESULTADO EXAMEN GEOMÁTICA*
+            
+👤 *${r.name}*
+📊 *${r.correct}/${r.total} correctas (${r.percentage}%)*
+📈 *Puntaje: ${r.score}/63 puntos*
+${status}
+
+🔗 Evalúa tu examen aquí:
+${window.location.href}
+
+💡 _Hecho por Pablo Cussen - UMAY 2025_`;
+
+            const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Easter egg - load Pablo's answers
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+                document.getElementById('studentName').value = 'Pablo Cussen (Autor)';
+                const pabloAnswers = ['C','C','B','C','D','E','D','B','D','C','B','B','B','B','C','A','B','B','B','D','D'];
+                pabloAnswers.forEach((ans, i) => {
+                    document.getElementById(`q${i+1}`).value = ans;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
