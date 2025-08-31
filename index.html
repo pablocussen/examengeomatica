@@ -15,28 +15,29 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 15px;
-            color: #000000;
+            padding: 10px;
+            color: white;
         }
 
         .container {
             max-width: 400px;
             margin: 0 auto;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .header h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             background: linear-gradient(45deg, #ff6b6b, #ffa726);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -44,122 +45,113 @@
         }
 
         .header p {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 8px;
-            font-weight: 500;
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 10px;
         }
 
         .input-section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .input-group label {
             display: block;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #333;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            opacity: 0.9;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 15px 18px;
-            border: 3px solid #e0e0e0;
+            padding: 12px 15px;
+            border: none;
             border-radius: 12px;
             background: #ffffff;
             color: #000000;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
             transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         input[type="text"]:focus {
             outline: none;
+            background: #ffffff;
             border-color: #ff6b6b;
-            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
 
         input[type="text"]::placeholder {
-            color: #999;
+            color: #666666;
             font-weight: 500;
-        }
-
-        .answers-section {
-            margin-bottom: 25px;
-        }
-
-        .answers-title {
-            text-align: center;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #333;
-            text-transform: uppercase;
         }
 
         .answers-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .answer-container {
-            text-align: center;
-        }
-
-        .answer-number {
-            font-size: 12px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 5px;
-            display: block;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .answer-input {
+            position: relative;
+        }
+
+        .answer-input input {
             width: 100%;
-            padding: 12px 8px;
-            border: 3px solid #ddd;
+            padding: 10px 5px;
+            border: none;
             border-radius: 8px;
             background: #ffffff;
             color: #000000;
             text-align: center;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
             transition: all 0.3s ease;
+            border: 2px solid #e0e0e0;
         }
 
-        .answer-input:focus {
-            outline: none;
-            border-color: #ff6b6b;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        .answer-input input:focus {
+            background: #ffffff;
             transform: scale(1.05);
+            border-color: #ff6b6b;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .answer-input::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 600;
+            opacity: 0.7;
         }
 
         .evaluate-btn {
             width: 100%;
-            padding: 18px;
+            padding: 15px;
             background: linear-gradient(45deg, #ff6b6b, #ffa726);
             border: none;
             border-radius: 15px;
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+            margin-bottom: 20px;
         }
 
         .evaluate-btn:hover {
@@ -168,16 +160,18 @@
         }
 
         .evaluate-btn:active {
-            transform: translateY(0px);
+            transform: translateY(-1px);
         }
 
         .results {
-            margin-top: 25px;
-            padding: 25px;
-            background: #f8f9fa;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
+            backdrop-filter: blur(10px);
             display: none;
-            border: 3px solid #e9ecef;
+            color: #000000;
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .results.show {
@@ -198,22 +192,20 @@
 
         .score {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .score-circle {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            color: white;
             background: linear-gradient(45deg, #4ecdc4, #44a08d);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .score-circle.approved {
@@ -225,71 +217,65 @@
         }
 
         .status-text {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
             color: #000000;
         }
 
         .details {
-            font-size: 16px;
-            margin-bottom: 20px;
-            color: #333;
-            font-weight: 500;
-            line-height: 1.4;
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            color: #333333;
         }
 
         .breakdown {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 5px;
+            margin-bottom: 15px;
         }
 
         .result-item {
-            padding: 12px 6px;
-            border-radius: 8px;
+            padding: 8px 4px;
+            border-radius: 6px;
             text-align: center;
             font-size: 12px;
-            font-weight: 700;
-            color: white;
-            border: 2px solid transparent;
+            font-weight: 600;
         }
 
         .result-item.correct {
-            background: #28a745;
-            border-color: #1e7e34;
+            background: rgba(86, 171, 47, 0.8);
         }
 
         .result-item.incorrect {
-            background: #dc3545;
-            border-color: #c82333;
+            background: rgba(255, 65, 108, 0.8);
         }
 
         .share-btn {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: linear-gradient(45deg, #25d366, #128c7e);
             border: none;
             border-radius: 12px;
             color: white;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
         }
 
         .share-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
         }
 
         .footer {
             text-align: center;
-            margin-top: 25px;
-            font-size: 14px;
-            color: #666;
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -308,93 +294,32 @@
             </div>
         </div>
 
-        <div class="answers-section">
-            <div class="answers-title">📝 Tus Respuestas (A, B, C, D, E)</div>
+        <div class="input-section">
+            <label style="display: block; text-align: center; margin-bottom: 15px; font-weight: 600;">
+                📝 Tus Respuestas (A, B, C, D, E)
+            </label>
             <div class="answers-grid">
-                <div class="answer-container">
-                    <span class="answer-number">1</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q1">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">2</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q2">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">3</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q3">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">4</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q4">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">5</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q5">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">6</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q6">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">7</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q7">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">8</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q8">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">9</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q9">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">10</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q10">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">11</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q11">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">12</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q12">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">13</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q13">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">14</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q14">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">15</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q15">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">16</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q16">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">17</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q17">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">18</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q18">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">19</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q19">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">20</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q20">
-                </div>
-                <div class="answer-container">
-                    <span class="answer-number">21</span>
-                    <input type="text" class="answer-input" maxlength="1" id="q21">
-                </div>
+                <div class="answer-input" data-num="1"><input type="text" maxlength="1" id="q1"></div>
+                <div class="answer-input" data-num="2"><input type="text" maxlength="1" id="q2"></div>
+                <div class="answer-input" data-num="3"><input type="text" maxlength="1" id="q3"></div>
+                <div class="answer-input" data-num="4"><input type="text" maxlength="1" id="q4"></div>
+                <div class="answer-input" data-num="5"><input type="text" maxlength="1" id="q5"></div>
+                <div class="answer-input" data-num="6"><input type="text" maxlength="1" id="q6"></div>
+                <div class="answer-input" data-num="7"><input type="text" maxlength="1" id="q7"></div>
+                <div class="answer-input" data-num="8"><input type="text" maxlength="1" id="q8"></div>
+                <div class="answer-input" data-num="9"><input type="text" maxlength="1" id="q9"></div>
+                <div class="answer-input" data-num="10"><input type="text" maxlength="1" id="q10"></div>
+                <div class="answer-input" data-num="11"><input type="text" maxlength="1" id="q11"></div>
+                <div class="answer-input" data-num="12"><input type="text" maxlength="1" id="q12"></div>
+                <div class="answer-input" data-num="13"><input type="text" maxlength="1" id="q13"></div>
+                <div class="answer-input" data-num="14"><input type="text" maxlength="1" id="q14"></div>
+                <div class="answer-input" data-num="15"><input type="text" maxlength="1" id="q15"></div>
+                <div class="answer-input" data-num="16"><input type="text" maxlength="1" id="q16"></div>
+                <div class="answer-input" data-num="17"><input type="text" maxlength="1" id="q17"></div>
+                <div class="answer-input" data-num="18"><input type="text" maxlength="1" id="q18"></div>
+                <div class="answer-input" data-num="19"><input type="text" maxlength="1" id="q19"></div>
+                <div class="answer-input" data-num="20"><input type="text" maxlength="1" id="q20"></div>
+                <div class="answer-input" data-num="21"><input type="text" maxlength="1" id="q21"></div>
             </div>
         </div>
 
@@ -434,7 +359,7 @@
         };
 
         // Auto-focus next input
-        document.querySelectorAll('.answer-input').forEach((input, index, inputs) => {
+        document.querySelectorAll('.answer-input input').forEach((input, index, inputs) => {
             input.addEventListener('input', function(e) {
                 this.value = this.value.toUpperCase();
                 if (this.value && index < inputs.length - 1) {
